@@ -7,10 +7,20 @@ require_relative 'tinyrails/array'
 module Tinyrails
   class Application
     def call(_env)
+      if _env['PATH_INFO'] == '/favicon.ico'
+        return [404, {'content-type' => 'text/html'}, []]
+      end
+
       klass, act = get_controller_and_action(_env)
       controller = klass.new(_env)
       text = controller.send(act)
       [200, { 'content-type' => 'text/html' }, [text]]
+    rescue NameError => e
+      [404, {'content-type' => 'text/html'}, ["No controller registered with this name."]]
+    rescue NoMethodError => e
+      [404, {'content-type' => 'text/html'}, ["No action registered with this name."]]
+    rescue => e
+      [500, {'content-type' => 'text/html'}, ["Internal server error"]]
     end
   end
 
