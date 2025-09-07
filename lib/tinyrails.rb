@@ -11,6 +11,10 @@ module Tinyrails
         return [404, {'content-type' => 'text/html'}, []]
       end
 
+      if _env['PATH_INFO'] == '/'
+        return [302, {'location' => '/tweets/a_tweet'}, ['<html><body>Redirecting...</body></html>']]
+      end
+
       klass, act = get_controller_and_action(_env)
       controller = klass.new(_env)
       text = controller.send(act)
@@ -20,7 +24,7 @@ module Tinyrails
     rescue NoMethodError => e
       [404, {'content-type' => 'text/html'}, ["No action registered with this name."]]
     rescue => e
-      [500, {'content-type' => 'text/html'}, ["Internal server error"]]
+      [500, {'content-type' => 'text/html'}, ["Internal server error  "]]
     end
   end
 
