@@ -22,11 +22,11 @@ module Tinyrails
       text = controller.send(act)
       [200, { 'content-type' => 'text/html' }, [text]]
     rescue NameError => e
-      [404, {'content-type' => 'text/html'}, ["No controller registered with this name."]]
+      [404, {'content-type' => 'text/html'}, ["Controller error: #{e.message}"]]
     rescue NoMethodError => e
-      [404, {'content-type' => 'text/html'}, ["No action registered with this name."]]
+      [404, {'content-type' => 'text/html'}, ["Action error: #{e.message}"]]
     rescue => e
-      [500, {'content-type' => 'text/html'}, ["Internal server error  "]]
+      [500, {'content-type' => 'text/html'}, ["Internal server error: #{e.message}"]]
     end
   end
 
