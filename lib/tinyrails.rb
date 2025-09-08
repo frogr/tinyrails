@@ -5,6 +5,7 @@ require_relative 'tinyrails/routing'
 require_relative 'tinyrails/array'
 require_relative 'tinyrails/dependencies'
 require_relative 'tinyrails/util'
+require_relative 'tinyrails/controller'
 
 module Tinyrails
   class Application
@@ -29,17 +30,6 @@ module Tinyrails
       [500, {'content-type' => 'text/html'}, ["Internal server error: #{e.message}"]]
     end
   end
-
-  class Controller
-    def initialize(env)
-      @env = env
-    end
-
-    def env
-      @env
-    end
-  end
-
   class Error < StandardError; end
   # Your code goes here...
 end
