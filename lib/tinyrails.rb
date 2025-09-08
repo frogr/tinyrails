@@ -3,6 +3,8 @@
 require_relative 'tinyrails/version'
 require_relative 'tinyrails/routing'
 require_relative 'tinyrails/array'
+require_relative 'tinyrails/dependencies'
+require_relative 'tinyrails/util'
 
 module Tinyrails
   class Application
