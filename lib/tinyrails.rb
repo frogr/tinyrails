@@ -17,7 +17,13 @@ module Tinyrails
         return [302, { 'location' => '/tweets/a_tweet' }, ['<html><body>Redirecting...</body></html>']]
       end
 
-      klass, act = get_controller_and_action(_env)
+      if env['REQUEST_METHOD'] == "POST"
+        klass, id, act = post_controller_and_action(_env)
+        env['route.id'] = id
+      else
+        klass, act = get_controller_and_action(_env)
+      end
+
       controller = klass.new(_env)
       text = controller.send(act)
       [200, { 'content-type' => 'text/html' }, [text]]
