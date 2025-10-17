@@ -1,9 +1,12 @@
 # frozen_string_literal: true
 
 require 'erubis'
+require_relative 'file_model'
 
 module Tinyrails
   class Controller
+    include Tinyrails::Model
+
     def initialize(env)
       @env = env
     end
