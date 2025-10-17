@@ -19,7 +19,7 @@ module Tinyrails
 
       if env['REQUEST_METHOD'] == "POST"
         klass, id, act = post_controller_and_action(_env)
-        env['route.id'] = id
+        _env['route.id'] = id
       else
         klass, act = get_controller_and_action(_env)
       end
