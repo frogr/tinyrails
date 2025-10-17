@@ -9,21 +9,21 @@ module Tinyrails
         basename = File.split(filename)[-1]
         @id = File.basename(basename, ".json").to_i
 
-        object = File.read(filename)
-        @hash = MultiJson.load(object)
+        obj = File.read(filename)
+        @hash = MultiJson.load(obj)
       end
 
-      def [](author)
-        @hash[author.to_s]
+      def [](name)
+        @hash[name.to_s]
       end
 
-      def []=(author, value)
-        @hash[author.to_s] = value
+      def []=(name, value)
+        @hash[name.to_s] = value
       end
 
       def self.find(id)
         begin
-          FileModel.new("db/quotes/#{id}.json")
+          FileModel.new("db/tweets/#{id}.json")
         rescue
           return nil
         end
