@@ -13,7 +13,7 @@ RSpec.describe Tinyrails do
 
   class TestsController < Tinyrails::Controller
     def an_action
-      "Result!"
+      'Result!'
     end
   end
 
@@ -29,7 +29,7 @@ RSpec.describe Tinyrails do
       get '/fake_route'
       expect(last_response).to_not be_ok
       expect(last_response.status).to eq(404)
-      expect(last_response.body).to include("was not found")
+      expect(last_response.body).to include('was not found')
     end
   end
 
@@ -38,7 +38,7 @@ RSpec.describe Tinyrails do
       get '/tests/fake_action'
       expect(last_response).to_not be_ok
       expect(last_response.status).to eq(404)
-      expect(last_response.body).to include("undefined method")
+      expect(last_response.body).to include('undefined method')
     end
   end
 end

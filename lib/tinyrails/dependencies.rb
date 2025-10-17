@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Object
   def self.const_missing(c)
     begin
@@ -6,10 +8,8 @@ class Object
       raise NameError, "#{c} was not found. Did you spell it correctly? Additional info: #{e}"
     end
 
-    if const_defined?(c)
-      const_get(c)
-    else
-      raise NameError, "Found #{Tinyrails.to_underscore(c.to_s)}.rb, but #{c} was not defined"
-    end
+    raise NameError, "Found #{Tinyrails.to_underscore(c.to_s)}.rb, but #{c} was not defined" unless const_defined?(c)
+
+    const_get(c)
   end
 end
