@@ -38,6 +38,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'erubis'
   spec.add_dependency 'rack', '~>3.2'
   spec.add_dependency 'webrick'
+  spec.add_dependency 'multi_json'
 
   spec.add_development_dependency 'rack-test'
   spec.add_development_dependency 'rspec'
