@@ -23,7 +23,7 @@ module Tinyrails
 
       def self.find(id)
         begin
-          FileModel.new("db/tweets/#{id}.json")
+          FileModel.new("app/db/tweets/#{id}.json")
         rescue
           return nil
         end
