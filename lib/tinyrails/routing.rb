@@ -3,21 +3,16 @@
 module Tinyrails
   class Application
     def get_controller_and_action(env)
-      _, controller, action, = env['PATH_INFO'].split('/', 4)
-
-      controller = controller.capitalize
-      controller += 'Controller'
-
-      [Object.const_get(controller), action]
+      _, controller, second, third = env['PATH_INFO'].split('/', 4)
+      if env['REQUEST_METHOD'] == 'POST'
+        [controller_name(controller), second, third]
+      else
+        [controller_name(controller), nil, second]
+      end
     end
 
-    def post_controller_and_action(env)
-      _, controller, id, action = env['PATH_INFO'].split('/', 4)
-
-      controller = controller.capitalize
-      controller += 'Controller'
-
-      [Object.const_get(controller), id, action]
+    def controller_name(controller)
+      "#{controller.capitalize}Controller"
     end
   end
 end
