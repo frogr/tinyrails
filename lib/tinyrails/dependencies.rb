@@ -3,7 +3,7 @@ class Object
     begin
       require Tinyrails.to_underscore(c.to_s)
     rescue LoadError => e
-      raise NameError, "#{c} was not found. Did you spell it correctly?"
+      raise NameError, "#{c} was not found. Did you spell it correctly? Additional info: #{e}"
     end
 
     if const_defined?(c)
