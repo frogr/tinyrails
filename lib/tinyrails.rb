@@ -17,7 +17,7 @@ module Tinyrails
         return [302, { 'location' => '/tweets/a_tweet' }, ['<html><body>Redirecting...</body></html>']]
       end
 
-      if env['REQUEST_METHOD'] == "POST"
+      if _env['REQUEST_METHOD'] == "POST"
         klass, id, act = post_controller_and_action(_env)
         _env['route.id'] = id
       else
