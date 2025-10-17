@@ -3,6 +3,8 @@ require "multi_json"
 module Tinyrails
   module Model
     class FileModel
+
+      attr_accessor :data, :filename, :id
       def initialize(filename)
         @filename = filename
 
@@ -10,15 +12,15 @@ module Tinyrails
         @id = File.basename(basename, ".json").to_i
 
         obj = File.read(filename)
-        @hash = MultiJson.load(obj)
+        @data = MultiJson.load(obj)
       end
 
       def [](name)
-        @hash[name.to_s]
+        @data[name.to_s]
       end
 
       def []=(name, value)
-        @hash[name.to_s] = value
+        @data[name.to_s] = value
       end
 
       def self.find(id)
@@ -32,6 +34,11 @@ module Tinyrails
       def self.all
         files = Dir["app/db/tweets/*.json"]
         files.map { |f| FileModel.new f }
+      end
+
+      def self.update(new_hash)
+        @data = new_hash.merge!
+        File.write(@filename, MultiJson.dump(@data))
       end
     end
   end
