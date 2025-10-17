@@ -12,7 +12,7 @@ module Tinyrails
     end
 
     def controller_name(controller)
-      "#{controller.capitalize}Controller"
+      Object.const_get("#{controller.capitalize}Controller")
     end
   end
 end
