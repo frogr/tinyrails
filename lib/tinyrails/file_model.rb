@@ -28,6 +28,11 @@ module Tinyrails
           return nil
         end
       end
+
+      def self.all
+        files = Dir["app/db/tweets/*.json"]
+        files.map { |f| FileModel.new f }
+      end
     end
   end
 end
