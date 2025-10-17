@@ -36,7 +36,7 @@ module Tinyrails
         files.map { |f| FileModel.new f }
       end
 
-      def self.update(new_hash)
+      def update(new_hash)
         @data = new_hash.merge!
         File.write(@filename, MultiJson.dump(@data))
       end
