@@ -24,10 +24,22 @@ module Tinyrails
       text = controller.send(act)
       [200, { 'content-type' => 'text/html' }, [text]]
     rescue NameError => e
-      [404, { 'content-type' => 'text/html' }, ["Controller error: #{e.message}"]]
+      no_controller_error(e)
     rescue NoMethodError => e
-      [404, { 'content-type' => 'text/html' }, ["Action error: #{e.message}"]]
+      no_action_error(e)
     rescue StandardError => e
+      internal_server_error(e)
+    end
+
+    def no_controller_error(e)
+      [404, { 'content-type' => 'text/html' }, ["Controller error: #{e.message}"]]
+    end
+
+    def no_action_error(e)
+      [404, { 'content-type' => 'text/html' }, ["Action error: #{e.message}"]]
+    end
+
+    def internal_server_error(e)
       [500, { 'content-type' => 'text/html' }, ["Internal server error: #{e.message}"]]
     end
 
