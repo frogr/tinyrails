@@ -28,7 +28,7 @@ module Tinyrails
     end
 
     def response(text, status=200, headers={})
-      raise "Already responded!" if response
+      raise "Already responded!" if @response
 
       a = [text].flatten
       @response = Rack::Response.new(a, status, headers)
