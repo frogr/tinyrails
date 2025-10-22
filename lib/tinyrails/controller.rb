@@ -43,7 +43,7 @@ module Tinyrails
       instance_variables.each do |var|
         next if var == :@env || var == :@request || var == :@response
         key = var.to_s.gsub('@',  '').to_sym
-        controller_vars[key] = instance_Variable_get(var)
+        controller_vars[key] = instance_variable_get(var)
       end
 
       response(render_to_string(view_name), locals.merge(controller_vars))
