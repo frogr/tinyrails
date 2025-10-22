@@ -46,7 +46,7 @@ module Tinyrails
         controller_vars[key] = instance_variable_get(var)
       end
 
-      response(render_to_string(view_name), locals.merge(controller_vars))
+      response(render_to_string(view_name, locals.merge(controller_vars)))
     end
 
     def request
