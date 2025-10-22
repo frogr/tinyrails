@@ -2,6 +2,7 @@
 
 require 'erubis'
 require 'rack/request'
+require 'rack/response'
 require_relative 'file_model'
 
 module Tinyrails
