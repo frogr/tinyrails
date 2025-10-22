@@ -36,9 +36,23 @@ module Tinyrails
         files.map { |f| FileModel.new f }
       end
 
+      def self.where(attributes={})
+        return self.all if attributes.empty?
+
+        self.all.select do |model|
+          attributes.all? do |k, v|
+            model[k] == v
+          end
+        end
+      end
+
+      def save
+        File.write(@filename, MultiJson.dump(@data))
+      end
+
       def update(new_hash)
         @data = @data.merge!(new_hash)
-        File.write(@filename, MultiJson.dump(@data))
+        self.save
       end
     end
   end
