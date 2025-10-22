@@ -46,6 +46,12 @@ module Tinyrails
         end
       end
 
+      def self.create(new_hash, new_id)
+        filename = "app/db/tweets/#{new_id}.json"
+        File.write(filename, MultiJson.dump(new_hash))
+        FileModel.new(filename)
+      end
+
       def save
         File.write(@filename, MultiJson.dump(@data))
       end
