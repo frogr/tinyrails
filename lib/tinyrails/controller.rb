@@ -21,7 +21,7 @@ module Tinyrails
       Tinyrails.to_underscore klass
     end
 
-    def render_to_string(view_name, locals = {})
+    def render_to_string(view_name, view_object)
       filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
       template = File.read filename
       eruby = Erubis::Eruby.new(template)
