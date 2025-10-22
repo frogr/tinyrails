@@ -21,12 +21,15 @@ module Tinyrails
       _env['route.id'] = id if id
 
       controller = klass.new(_env)
-      result = controller.send(act)
+      controller.send(act)
+      response = controller.get_response
 
-      if result.is_a?(Array) && result.length == 3 && result[0].is_a?(Integer)
-        result
+      if response
+        [response.status, response.headers, [response.body].flatten]
       else
-        [200, { 'content-type' => 'text/html' }, [result]]
+        controller.render(act)
+        response = controller.get_response
+        [response.status, response.headers, [response.body]]
       end
 
     rescue NameError => e
