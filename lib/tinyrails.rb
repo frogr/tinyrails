@@ -25,11 +25,11 @@ module Tinyrails
       response = controller.get_response
 
       if response
-        [response.status, response.headers, [response.body].flatten]
+        [response.status, response.headers, response.body]
       else
         controller.render(act)
         response = controller.get_response
-        [response.status, response.headers, [response.body]]
+        [response.status, response.headers, response.body]
       end
 
     rescue NameError => e
