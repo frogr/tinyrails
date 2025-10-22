@@ -25,7 +25,7 @@ module Tinyrails
       filename = File.join 'app', 'views', controller_name, "#{view_name}.html.erb"
       template = File.read filename
       eruby = Erubis::Eruby.new(template)
-      eruby.result locals.merge(env: env)
+      eruby.result(view_object.instance_eval { binding })
     end
 
     def response(text, status=200, headers={})
@@ -40,14 +40,20 @@ module Tinyrails
     end
 
     def render(view_name, locals={})
+      view = Tinyrails::View.new(@env)
+
       controller_vars = {}
       instance_variables.each do |var|
         next if var == :@env || var == :@request || var == :@response
-        key = var.to_s.gsub('@',  '').to_sym
-        controller_vars[key] = instance_variable_get(var)
+        value = instance_variable_get(var)
+        view.isntance_variable_set(var, value)
       end
 
-      response(render_to_string(view_name, locals.merge(controller_vars)))
+      locals.each do |k, v|
+        view.instance_variable_set("#{k}", v)
+      end
+
+      response(render_to_string(view_name, view))
     end
 
     def request

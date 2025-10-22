@@ -7,6 +7,7 @@ require_relative 'tinyrails/dependencies'
 require_relative 'tinyrails/util'
 require_relative 'tinyrails/controller'
 require_relative 'tinyrails/file_model'
+require_relative 'tinyrails/view'
 
 module Tinyrails
   class Application
