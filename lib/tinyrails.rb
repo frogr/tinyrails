@@ -22,7 +22,13 @@ module Tinyrails
 
       controller = klass.new(_env)
       text = controller.send(act)
-      [200, { 'content-type' => 'text/html' }, [text]]
+
+      if result.is_a?(Array) && result.length == 3 && result[0].is_a?(Integer)
+        result
+      else
+        [200, { 'content-type' => 'text/html' }, [text]]
+      end
+
     rescue NameError => e
       no_controller_error(e)
     rescue NoMethodError => e
