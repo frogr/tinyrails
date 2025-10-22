@@ -46,7 +46,7 @@ module Tinyrails
       instance_variables.each do |var|
         next if var == :@env || var == :@request || var == :@response
         value = instance_variable_get(var)
-        view.isntance_variable_set(var, value)
+        view.instance_variable_set(var, value)
       end
 
       locals.each do |k, v|
